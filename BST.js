@@ -35,6 +35,89 @@ class Tree {
     throw new Error("Insertion failed...");
   }
 
+  deleteItem(value) {
+    let q = [{ node: this.root, parent: null, isLeftChild: false }];
+
+    while (q.length > 0) {
+      let { node, parent, isLeftChild } = q.shift();
+      if (node === null) {
+        return;
+      }
+      let left = node.left;
+      let right = node.right;
+      if (node.val === value) {
+        this.removeNode(node, parent, isLeftChild);
+      } else {
+        if (value < node.val) {
+          q.push({ node: left, parent: node, isLeftChild: true });
+        } else {
+          q.push({ node: right, parent: node, isLeftChild: false });
+        }
+      }
+    }
+  }
+
+  removeNode(node, parent, isLeftChild) {
+    if (!node.left && !node.right) {
+      //no child, just remove from parent
+      if (parent === null) {
+        this.root = null;
+        return;
+      }
+      if (isLeftChild) {
+        parent.left = null;
+      } else {
+        parent.right = null;
+      }
+    } else if ((node.left && !node.right) || (!node.left && node.right)) {
+      //single child, replace in parent with child
+      if (parent === null) {
+        this.root = node.left ? node.left : node.right;
+        return;
+      }
+      if (isLeftChild) {
+        parent.left = node.left ? node.left : node.right;
+      } else {
+        parent.right = node.left ? node.left : node.right;
+      }
+    } else {
+      //two children, replace with smallest of right
+      let {
+        node: replacement,
+        parent: rParent,
+        isLeftChild: rIsLeftChild,
+      } = Tree.smallest(node.right, node, false);
+      this.removeNode(replacement, rParent, rIsLeftChild);
+      replacement.left = node.left;
+      replacement.right = node.right;
+
+      if (parent === null) {
+        this.root = replacement;
+        return;
+      }
+      if (isLeftChild) {
+        parent.left = replacement;
+      } else {
+        parent.right = replacement;
+      }
+    }
+  }
+
+  static smallest(baseNode, baseParent, baseIsLeftChild) {
+    if (baseNode === null) {
+      return null;
+    }
+    let node = baseNode;
+    let parent = baseParent;
+    let isLeftChild = baseIsLeftChild;
+    while (node.left != null) {
+      parent = node;
+      isLeftChild = true;
+      node = node.left;
+    }
+    return { node, parent, isLeftChild };
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
