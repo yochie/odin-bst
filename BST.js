@@ -251,6 +251,12 @@ class Tree {
     };
   }
 
+  rebalance() {
+    let flattened = [];
+    this.inOrder((node) => flattened.push(node.val));
+    this.root = Tree.buildTree(flattened);
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
