@@ -48,3 +48,12 @@ try {
 } catch (e) {
   console.log(e);
 }
+
+prettyPrint(t2.root);
+console.log(t2.isBalanced());
+t2.insert(50);
+prettyPrint(t2.root);
+console.log(t2.isBalanced());
+t2.insert(7000);
+prettyPrint(t2.root);
+console.log(t2.isBalanced());

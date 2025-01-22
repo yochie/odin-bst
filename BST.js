@@ -217,6 +217,37 @@ class Tree {
     throw new Error("node not found");
   }
 
+  isBalanced() {
+    return this.isBalancedRecursion(this.root).balanced;
+  }
+
+  isBalancedRecursion(node) {
+    if (node === null) {
+      return { balanced: true, height: 0 };
+    }
+
+    if (node.left === null && node.right === null) {
+      return { balanced: true, height: 1 };
+    }
+
+    let { balanced: leftBalanced, height: leftHeight } =
+      this.isBalancedRecursion(node.left);
+    if (!leftBalanced) {
+      return { balanced: false, height: undefined };
+    }
+
+    let { balanced: rightBalanced, height: rightHeight } =
+      this.isBalancedRecursion(node.right);
+    if (!rightBalanced) {
+      return { balanced: false, height: undefined };
+    }
+
+    return {
+      balanced: Math.abs(leftHeight - rightHeight) <= 1,
+      height: Math.max(rightHeight, leftHeight) + 1,
+    };
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
