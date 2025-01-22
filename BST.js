@@ -118,6 +118,20 @@ class Tree {
     return { node, parent, isLeftChild };
   }
 
+  find(value) {
+    let current = this.root;
+    while (current != null) {
+      if (value == current.val) {
+        return current;
+      } else if (value < current.val) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return null;
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
