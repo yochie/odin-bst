@@ -149,6 +149,55 @@ class Tree {
     }
   }
 
+  inOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("callback required");
+    }
+    this.inOrderRecursion(callback, this.root);
+  }
+
+  inOrderRecursion(cb, node) {
+    if (node === null) {
+      return;
+    }
+    this.inOrderRecursion(cb, node.left);
+    cb(node);
+    this.inOrderRecursion(cb, node.right);
+  }
+
+  preOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("callback required");
+    }
+
+    this.preOrderRecursion(callback, this.root);
+  }
+
+  preOrderRecursion(cb, node) {
+    if (node === null) {
+      return;
+    }
+    cb(node);
+    this.preOrderRecursion(cb, node.left);
+    this.preOrderRecursion(cb, node.right);
+  }
+
+  postOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("callback required");
+    }
+    this.postOrderRecursion(callback, this.root);
+  }
+
+  postOrderRecursion(cb, node) {
+    if (node === null) {
+      return;
+    }
+    this.postOrderRecursion(cb, node.left);
+    this.postOrderRecursion(cb, node.right);
+    cb(node);
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);

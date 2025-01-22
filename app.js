@@ -31,4 +31,11 @@ console.log(t2.find(55));
 
 t2.levelOrder(console.log);
 
-t2.levelOrder(3);
+console.log("in order : ");
+t2.inOrder(console.log);
+
+console.log("pre order : ");
+t2.preOrder(console.log);
+
+console.log("post order : ");
+t2.postOrder(console.log);
