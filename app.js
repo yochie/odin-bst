@@ -19,3 +19,16 @@ prettyPrint(t2.root);
 
 t2.deleteItem(23);
 prettyPrint(t2.root);
+
+t2.deleteItem(8);
+prettyPrint(t2.root);
+
+t2.deleteItem(4);
+prettyPrint(t2.root);
+
+console.log(t2.find(67));
+console.log(t2.find(55));
+
+t2.levelOrder(console.log);
+
+t2.levelOrder(3);
