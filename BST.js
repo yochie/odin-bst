@@ -132,6 +132,23 @@ class Tree {
     return null;
   }
 
+  levelOrder(callback) {
+    if (typeof callback !== "function") {
+      throw new Error("callback required");
+    }
+
+    let q = [this.root];
+    while (q.length > 0) {
+      let current = q.shift();
+      if (current === null) {
+        continue;
+      }
+      callback(current);
+      q.push(current.left);
+      q.push(current.right);
+    }
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
