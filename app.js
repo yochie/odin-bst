@@ -57,3 +57,42 @@ console.log(t2.isBalanced());
 t2.insert(7000);
 prettyPrint(t2.root);
 console.log(t2.isBalanced());
+
+t2.rebalance();
+console.log("rebalanced :");
+prettyPrint(t2.root);
+
+console.log("Exercise tests : ");
+let randomInts = generateRandomArray(10, 100);
+let t3 = new Tree(randomInts);
+prettyPrint(t3.root);
+console.log(t3.isBalanced());
+t3.levelOrder(console.log);
+t3.inOrder(console.log);
+t3.preOrder(console.log);
+t3.postOrder(console.log);
+t3.insert(101);
+t3.insert(101);
+t3.insert(102);
+t3.insert(103);
+prettyPrint(t3.root);
+console.log(t3.isBalanced());
+t3.rebalance();
+console.log(t3.isBalanced());
+
+console.log("lvl order:");
+t3.levelOrder(console.log);
+console.log("in order:");
+t3.inOrder(console.log);
+console.log("pre order:");
+t3.preOrder(console.log);
+console.log("post order:");
+t3.postOrder(console.log);
+
+function generateRandomArray(size, max) {
+  let arr = [];
+  for (let i = 0; i < size; i++) {
+    arr.push(Math.floor(Math.random() * max));
+  }
+  return arr;
+}
