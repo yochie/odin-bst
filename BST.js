@@ -16,20 +16,23 @@ class Tree {
     let q = [this.root];
     while (q.length > 0) {
       let current = q.shift();
-      if (value <= current.val) {
+      if (value < current.val) {
         if (current.left === null) {
           current.left = new Node(value);
           return;
         } else {
           q.push(current.left);
         }
-      } else {
+      } else if (value > current.val) {
         if (current.right === null) {
           current.right = new Node(value);
           return;
         } else {
           q.push(current.right);
         }
+      } else {
+        console.log("ignoring duplicate insertion");
+        return;
       }
     }
     throw new Error("Insertion failed...");
