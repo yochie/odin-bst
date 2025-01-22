@@ -198,6 +198,25 @@ class Tree {
     cb(node);
   }
 
+  depth(node) {
+    if (!(node instanceof Node)) {
+      throw new Error("arg must be node");
+    }
+    let q = [{ n: this.root, depth: 0 }];
+    while (q.length > 0) {
+      let { n: current, depth: depth } = q.shift();
+      if (current === null) {
+        continue;
+      }
+      if (current === node) {
+        return depth;
+      }
+      q.push({ n: current.left, depth: depth + 1 });
+      q.push({ n: current.right, depth: depth + 1 });
+    }
+    throw new Error("node not found");
+  }
+
   static buildTree(arr) {
     let set = new Set(arr);
     let uniqueArr = Array.from(set);
@@ -230,4 +249,4 @@ class Tree {
   }
 }
 
-export { Tree };
+export { Tree, Node };

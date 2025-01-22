@@ -1,4 +1,4 @@
-import { Tree } from "./BST.js";
+import { Tree, Node } from "./BST.js";
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
   if (node === null) {
@@ -39,3 +39,12 @@ t2.preOrder(console.log);
 
 console.log("post order : ");
 t2.postOrder(console.log);
+
+console.log("depth : ");
+console.log("9: " + t2.depth(t2.find(9)));
+console.log("3: " + t2.depth(t2.find(3)));
+try {
+  t2.depth(new Node());
+} catch (e) {
+  console.log(e);
+}
